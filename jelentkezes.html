@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Apáti Rebeka">
+    <meta name="description" content="A WAVE Corvinus diákszervezetének bemutató oldala.">
+    <title>WAVE – Jelentkezés</title>
+    <link rel="icon" href="pics/wave.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function() {
+
+        $('#igenyfelmeres').submit(function(e) {
+            e.preventDefault();
+            var vezeteknev = $('#vezeteknev').val();
+            var keresztnev = $('#keresztnev').val();
+            var email = $('#email').val();
+            var date = $('#idopont').val();
+            var radioValue = $("input[name='eldontendo']:checked").val();
+            var fileInput = $('#oneletrajz')[0]; // Get the file input element
+            var file = fileInput.files[0]; // Get the selected file
+
+            $(".error").remove();
+
+            if (vezeteknev.length < 1) {
+                $('#vezeteknev').after('<span class="error">A mező megadása kötelező</span>');
+            }
+            if (keresztnev.length < 1) {
+                $('#keresztnev').after('<span class="error">A mező megadása kötelező</span>');
+            }
+            if (email.length < 1) {
+                $('#email').after('<span class="error">A mező megadása kötelező</span>');
+            } 
+            
+            if (date < 1) {
+                $('#idopont').after('<span class="error">A mező megadása kötelező</span>');
+            }
+
+            if (!radioValue) {
+              $('#eldontendo').parent().append('<span class="error">Kérlek válassz egy lehetőséget</span>');
+            }
+
+            if (!file) {
+                $('#oneletrajz').parent().append('<span class="error">Kérlek válassz egy fájlt</span>');
+            } else {
+                var allowedExtensions = /(\.pdf|\.docx)$/i; // Add or modify file extensions as needed
+                if (!allowedExtensions.exec(file.name)) {
+                    $('#oneletrajz').parent().append('<span class="error">Csak PDF vagy DOCX fájlokat tölthetsz fel</span>');
+                }
+              }    
+        });
+
+        });
+    </script>
+    <header>
+       <a href="rolunk.html" id="szalag">WAVE Corvinus</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="rolunk.html">Rólunk</a></li>
+            <li><a href="tevekenysegeink.html">Tevékenységeink</a></li>
+            <li><a href="szervezetifelepites.html">Szervezeti felépítés</a></li>
+            <li><a href="jelentkezesmenete.html">Jelentkezés menete</a></li>
+            <li><a href="#">Jelentkezés</a></li>
+        </ul>
+    </nav>
+    <div id="kerdoiv">
+        <form id="igenyfelmeres" method="post">
+              <div>
+                <label for="vezeteknev">Vezetéknév:</label>
+                <input type="text" id="vezeteknev" name="vezeteknev"></input>
+              </div>
+              <div>
+                <label for="keresztnev">Keresztnév:</label>
+                <input type="text" id="keresztnev" name="keresztnev"></input>
+              </div>
+              <div>
+                <label for="email">E-mail cím:</label>
+                <input type="email" id="email" name="email"></input>
+              </div>
+              <div>
+                <label for="idopont">Születési dátum:</label>
+                <input type="date" id="idopont" name="idopont"></input>
+              </div>
+              <div>
+                <label for="eldontendo">Corvinus-os diák vagy?</label>
+                <input type="radio" id="eldontendo" name="eldontendo" value="igen">Igen</input>
+                <input type="radio" id="eldontendo" name="eldontendo" value="nem">Nem</input>
+              </div>
+              <div>
+                <label for="megjelent">Hány Waves eseményen vettél eddig részt?</label>
+                <input type="number" id="megjelent" name="megjelent" max="10" min="0"></input>
+              </div>
+              <div>
+                <label for="valasztas">Milyen típusú eseményt látnál tőlünk szívesen?</label>
+                <input type="checkbox" id="valasztas" name="valasztas">Előadás</input>
+                <input type="checkbox" id="valasztas" name="valasztas">Kerekasztal beszélgetés</input>
+                <input type="checkbox" id="valasztas" name="valasztas">Kurzus</input>
+                <input type="checkbox" id="valasztas" name="valasztas">Jótékonysági</input>
+                <input type="checkbox" id="valasztas" name="valasztas">Sport</input>
+                <input type="checkbox" id="valasztas" name="valasztas">Játékos</input>
+              </div>
+              <div>
+                <label for="oneletrajz">Önéletrajz:</label>
+                <input type="file" id="oneletrajz" name="oneletrajz"></input>
+              </div>
+              <div>
+                <input type="submit" id="submit" value="Beküldés"/>
+              </div>
+              <div id="recruitmentResult"></div>
+        </form>
+    </div>
+    <footer>
+        <p>Az oldal iskolai beadandó céljából készült.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
